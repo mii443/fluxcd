@@ -7,7 +7,7 @@ data:
   vmName: dev
   cores: "2"
   cpuModel: Nehalem
-  memory: 2Gi
+  memory: 4Gi
   storage: 32Gi
   cloudInitUserData: |-
     hostname: dev
