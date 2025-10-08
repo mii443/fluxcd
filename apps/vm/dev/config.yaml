@@ -6,6 +6,7 @@ metadata:
 data:
   vmName: dev
   cores: "8"
+  cpuModel: x86-64-v2-AES
   memory: 4Gi
   storage: 32Gi
   cloudInitUserData: |-

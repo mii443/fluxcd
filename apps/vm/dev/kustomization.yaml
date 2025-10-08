@@ -33,6 +33,15 @@ replacements:
     select:
       kind: VirtualMachine
 - source:
+    fieldPath: data.cpuModel
+    kind: ConfigMap
+    name: vm-config
+  targets:
+  - fieldPaths:
+    - spec.template.spec.domain.cpu.model
+    select:
+      kind: VirtualMachine
+- source:
     fieldPath: data.memory
     kind: ConfigMap
     name: vm-config
