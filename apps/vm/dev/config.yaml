@@ -5,7 +5,7 @@ metadata:
   namespace: default
 data:
   vmName: dev
-  cores: "2"
+  cores: "4"
   cpuModel: kvm64
   memory: 4Gi
   storage: 32Gi
