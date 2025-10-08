@@ -6,7 +6,7 @@ metadata:
 data:
   vmName: dev
   cores: "2"
-  cpuModel: Penryn
+  cpuModel: qemu64
   memory: 4Gi
   storage: 32Gi
   cloudInitUserData: |-
