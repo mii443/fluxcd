@@ -5,7 +5,7 @@ metadata:
   namespace: default
 data:
   vmName: dev
-  cores: "4"
+  cores: "8"
   memory: 4Gi
   storage: 32Gi
   cloudInitUserData: |-
