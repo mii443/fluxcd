@@ -6,7 +6,7 @@ metadata:
 data:
   vmName: dev
   cores: "2"
-  cpuModel: qemu64
+  cpuModel: kvm64
   memory: 4Gi
   storage: 32Gi
   cloudInitUserData: |-
