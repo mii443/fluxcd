@@ -5,9 +5,9 @@ metadata:
   namespace: default
 data:
   vmName: dev
-  cores: "8"
-  cpuModel: x86-64-v2-AES
-  memory: 4Gi
+  cores: "2"
+  cpuModel: Nehalem
+  memory: 2Gi
   storage: 32Gi
   cloudInitUserData: |-
     hostname: dev
