@@ -6,7 +6,7 @@ metadata:
 data:
   vmName: dev
   cores: "2"
-  cpuModel: Opteron_G3-v1
+  cpuModel: Penryn
   memory: 4Gi
   storage: 32Gi
   cloudInitUserData: |-
