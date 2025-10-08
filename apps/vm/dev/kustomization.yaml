@@ -50,7 +50,7 @@ replacements:
     select:
       kind: VirtualMachine
 - source:
-    fieldPath: data.cloudInit.userData
+    fieldPath: data.cloudInit.cloudInitUserData
     kind: ConfigMap
     name: vm-config
   targets:
@@ -62,7 +62,7 @@ replacements:
       delimiter: "#DELIMITER\n"
       index: 1
 - source:
-    fieldpath: data.cloudInit.networkData
+    fieldPath: data.cloudInitNetworkData
     kind: ConfigMap
     name: vm-config
   targets:
