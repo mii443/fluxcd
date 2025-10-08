@@ -50,7 +50,7 @@ replacements:
     select:
       kind: VirtualMachine
 - source:
-    fieldPath: data.cloudInit.cloudInitUserData
+    fieldPath: data.cloudInitUserData
     kind: ConfigMap
     name: vm-config
   targets:
