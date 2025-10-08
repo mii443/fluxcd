@@ -32,8 +32,29 @@ spec:
               persistent: true
               secureBoot: false
         features:
+          kvm:
+            hidden: true
+          hyperv:
+            relaxed: {}
+            vapic: {}
+            spinlocks:
+              spinlocks: 8191
+          acpi: {}
           smm:
             enabled: false
+        clock:
+          utc: {}
+          timer:
+            hpet:
+              present: false
+            pit:
+              present: false
+              tickPolicy: delay
+            rtc:
+              present: false
+              tickPolicy: catchup
+            hyperv:
+              present: false
         cpu:
           cores: 2
           sockets: 1
