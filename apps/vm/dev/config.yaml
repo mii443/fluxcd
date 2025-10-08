@@ -10,11 +10,11 @@ data:
   storage: 32Gi
 
   cloudInit:
-    userData: |
+    userData: |-
       hostname: dev
       password: dev
       ssh_import_id: ['gh:mii443']
-    networkData: |
+    networkData: |-
       version: 1
       config:
         - type: physical
