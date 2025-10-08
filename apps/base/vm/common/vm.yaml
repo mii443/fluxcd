@@ -1,0 +1,78 @@
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: template
+  namespace: default
+spec:
+  running: true
+  dataVolumeTemplates:
+    - metadata:
+        name: template-hdd
+      spec:
+        source:
+          snapshot:
+            namespace: default
+            name: template-hdd
+        pvc:
+          accessModes: ["ReadWriteMany"]
+          resources:
+            requests:
+              storage: 16Gi
+          storageClassName: rook-ceph-block
+          volumeMode: Block
+  template:
+    metadata:
+      labels:
+        kubevirt.io/domain: template
+    spec:
+      domain:
+        firmware:
+          bootloader:
+            efi:
+              persistent: true
+              secureBoot: false
+        features:
+          smm:
+            enabled: false
+        cpu:
+          cores: 2
+          sockets: 1
+          threads: 1
+          model: host-passthrough
+        memory:
+          guest: "2Gi"
+        devices:
+          disks:
+            - name: template-hdd
+              bootOrder: 1
+              disk:
+                bus: virtio
+            - name: cloudinitdisk
+              cdrom:
+                bus: sata
+                readonly: true
+          interfaces:
+          - name: bridge-outside
+            bridge: {}
+      networks:
+      - name: bridge-outside
+        multus:
+          default: true
+          networkName: default/bridge-outside
+      volumes:
+        - name: template-hdd
+          dataVolume:
+            name: template-hdd
+        - name: cloudinitdisk
+          cloudInitNoCloud:
+            userData: |
+              #cloud-config
+              chpasswd: { expire: False }
+              ssh_pwauth: false
+              disable_root: false
+              runcmd:
+                - sed -i.bak -r 's@http://(jp\.)?archive\.ubuntu\.com/ubuntu/?@https://ftp.udx.icscoe.jp/Linux/ubuntu/@g' /etc/apt/sources.list.d/ubuntu.sources
+                - apt update
+              #DELIMITER
+            networkData: |
+

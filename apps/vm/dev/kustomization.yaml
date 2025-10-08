@@ -1,0 +1,83 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+- config.yaml
+- ../../base/vm/common
+replacements:
+- source:
+    fieldPath: data.vmName
+    kind: ConfigMap
+    name: vm-config
+  targets:
+  - fieldPaths:
+    - metadata.name
+    - spec.template.metadata.labels.[kubevirt.io/domain]
+    - spec.template.spec.volumes.[name=template-hdd].dataVolume.name
+    - spec.template.spec.volumes.[name=template-hdd].name
+    - spec.dataVolumeTemplates.0.metadata.name
+    - spec.dataVolumeTemplates.0.spec.source.snapshot.name
+    select:
+      kind: VirtualMachine
+  - fieldPaths:
+    - metadata.name
+    select:
+      kind: VolumeSnapshot
+- source:
+    fieldPath: data.cores
+    kind: ConfigMap
+    name: vm-config
+  targets:
+  - fieldPaths:
+    - spec.template.spec.domain.cpu.cores
+    select:
+      kind: VirtualMachine
+- source:
+    fieldPath: data.memory
+    kind: ConfigMap
+    name: vm-config
+  targets:
+  - fieldPaths:
+    - spec.template.spec.domain.memory.guest
+    select:
+      kind: VirtualMachine
+- source:
+    fieldPath: data.storage
+    kind: ConfigMap
+    name: vm-config
+  targets:
+  - fieldPaths:
+    - spec.dataVolumeTemplates.0.spec.pvc.resources.requests.storage
+    select:
+      kind: VirtualMachine
+- source:
+    fieldPath: data.cloudInit.userData
+    kind: ConfigMap
+    name: vm-config
+  targets:
+  - fieldPaths:
+    - spec.template.spec.volumes.[name=cloudinitdisk].cloudInitNoCloud.userData
+    select:
+      kind: VirtualMachine
+    options:
+      delimiter: "#DELIMITER\n"
+      index: 1
+- source:
+    fieldpath: data.cloudInit.networkData
+    kind: ConfigMap
+    name: vm-config
+  targets:
+  - fieldPaths:
+    - spec.template.spec.volumes.[name=cloudinitdisk].cloudInitNoCloud.networkData
+    select:
+      kind: VirtualMachine
+- source:
+    fieldPath: data.vmName
+    kind: ConfigMap
+    name: vm-config
+  targets:
+  - fieldPaths:
+    - metadata.name
+    select:
+      kind: ConfigMap
+transformers:
+- vm-config-prefixer.yaml

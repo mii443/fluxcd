@@ -1,0 +1,13 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: dev-vm
+  namespace: default
+spec:
+  interval: 1m0s
+  path: ./apps/vm/dev
+  prune: true
+  wait: true
+  sourceRef:
+    kind: GitRepository
+    name: fluxcd

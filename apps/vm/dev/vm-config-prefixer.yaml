@@ -1,0 +1,9 @@
+apiVersion: builtin
+kind: PrefixSuffixTransformer
+metadata:
+  name: vm-config-prefixer
+prefix: vm-config-
+fieldSpecs:
+  - path: metadata/name
+    kind: ConfigMap
+
