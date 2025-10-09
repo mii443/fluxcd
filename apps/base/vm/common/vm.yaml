@@ -29,7 +29,7 @@ spec:
         resources:
           overcommitGuestOverhead: true
           requests:
-            cpu: '4'
+            cpu: 200m
         firmware:
           bootloader:
             efi:
