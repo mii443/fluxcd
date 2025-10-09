@@ -7,7 +7,7 @@ data:
   vmName: dev
   cores: "4"
 #  cpuModel: kvm64
-  cpuModel: host
+  cpuModel: host-passthrough
   memory: 4Gi
   storage: 32Gi
   cloudInitUserData: |-
