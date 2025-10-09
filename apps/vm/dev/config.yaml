@@ -6,8 +6,8 @@ metadata:
 data:
   vmName: dev
   cores: "16"
-  cpuModel: kvm64
-#  cpuModel: host-passthrough
+#  cpuModel: kvm64
+  cpuModel: host-passthrough
   memory: 4Gi
   storage: 32Gi
   cloudInitUserData: |-
