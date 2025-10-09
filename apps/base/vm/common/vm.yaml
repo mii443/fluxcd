@@ -28,6 +28,8 @@ spec:
       domain:
         resources:
           overcommitGuestOverhead: true
+          requests:
+            cpu: '4'
         firmware:
           bootloader:
             efi:
