@@ -26,6 +26,8 @@ spec:
         kubevirt.io/domain: template
     spec:
       domain:
+        resources:
+          overcommitGuestOverhead: true
         firmware:
           bootloader:
             efi:
