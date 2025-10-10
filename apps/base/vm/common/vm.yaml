@@ -30,6 +30,7 @@ spec:
           overcommitGuestOverhead: true
           requests:
             cpu: 200m
+            memory: 8Gi
         firmware:
           bootloader:
             efi:
