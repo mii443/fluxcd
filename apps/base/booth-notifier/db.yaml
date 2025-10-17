@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: booth-notifier-db-pvc
+  namespace: booth-notifier
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 32Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: booth-notifier-db
+  namespace: booth-notifier
+spec:
+  selector:
+    app: booth-notifier-db
+  ports:
+    - protocol: TCP
+      port: 5432
+      targetPort: 5432
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booth-notifier-db
+  namespace: booth-notifier
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booth-notifier-db
+  template:
+    metadata:
+      labels:
+        app: booth-notifier-db
+    spec:
+      containers:
+      - name: timescaledb
+        image: timescale/timescaledb-ha:pg17
+        ports:
+        - containerPort: 5432
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            secretKeyRef:
+              name: booth-notifier-db-secret
+              key: postgres-db
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: booth-notifier-db-secret
+              key: postgres-user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: booth-notifier-db-secret
+              key: postgres-password
+        volumeMounts:
+        - name: db-data
+          mountPath: /var/lib/postgresql/data
+      volumes:
+      - name: db-data
+        persistentVolumeClaim:
+          claimName: booth-notifier-db-pvc

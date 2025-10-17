@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: booth-notifier
+  namespace: booth-notifier
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: booth-notifier
+  template:
+    metadata:
+      labels:
+        app: booth-notifier
+    spec:
+      containers:
+      - name: booth-notifier
+        image: ghcr.io/mii443/booth-notifier:1.0.0
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: booth-notifier-db-secret
+              key: database-url
+        - name: BOT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: booth-notifier-bot-secret
+              key: bot-token
+        - name: BOT_OWNERS
+          valueFrom:
+            secretKeyRef:
+              name: booth-notifier-bot-secret
+              key: bot-owners
+        - name: CHECK_INTERVAL_SECONDS
+          valueFrom:
+            configMapKeyRef:
+              name: booth-notifier-config
+              key: check-interval-seconds
+        - name: FETCH_INTERVAL_MILLISECONDS
+          valueFrom:
+            configMapKeyRef:
+              name: booth-notifier-config
+              key: fetch-interval-milliseconds
+        - name: BOT_PREFIX
+          valueFrom:
+            configMapKeyRef:
+              name: booth-notifier-config
+              key: bot-prefix
+        - name: RUST_LOG
+          value: info
