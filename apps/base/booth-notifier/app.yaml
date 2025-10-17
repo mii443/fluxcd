@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: booth-notifier
-        image: ghcr.io/mii443/booth-notifier:v1.0.7
+        image: ghcr.io/mii443/booth-notifier:v1.0.9
         env:
         - name: DATABASE_URL
           valueFrom:
