@@ -34,18 +34,18 @@ spec:
               key: bot-owners
         - name: CHECK_INTERVAL_SECONDS
           valueFrom:
-            configMapKeyRef:
-              name: booth-notifier-config
+            secretKeyRef:
+              name: booth-notifier-bot-secret
               key: check-interval-seconds
         - name: FETCH_INTERVAL_MILLISECONDS
           valueFrom:
-            configMapKeyRef:
-              name: booth-notifier-config
+            secretKeyRef:
+              name: booth-notifier-bot-secret
               key: fetch-interval-milliseconds
         - name: BOT_PREFIX
           valueFrom:
-            configMapKeyRef:
-              name: booth-notifier-config
+            secretKeyRef:
+              name: booth-notifier-bot-secret
               key: bot-prefix
         - name: RUST_LOG
           value: info
